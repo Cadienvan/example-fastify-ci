@@ -1,13 +1,17 @@
 FROM node:22-alpine3.18
 
-WORKDIR /app
+RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
 
-COPY . .
+WORKDIR /home/node/app
 
-RUN npm ci
+COPY ./app/package*.json ./
 
-USER nobody
+USER node
 
-ENV NODE_ENV=production
+RUN npm install
 
-CMD ["index.js"]
+COPY --chown=node:node . .
+
+EXPOSE 3000
+
+CMD [ "node", "app.js" ]
