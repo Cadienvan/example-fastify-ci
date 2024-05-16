@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "prebuild:prettier": "prettier --write ./app",
     "format": "npm run prebuild:prettier",
