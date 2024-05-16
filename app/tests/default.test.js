@@ -24,6 +24,16 @@ describe('Liveness and Readiness', () => {
     equal(response.body, 'OK');
   });
 
+  it('should randomly trigger an error', async () => {
+    // random number between 1 and 10
+    const random = Math.floor(Math.random() * 10) + 1;
+    if (random > 7) {
+      equal(1, 2);
+    } else {
+      equal(1, 1);
+    }
+  });
+
   after(async () => {
     await fastify.close();
   });
