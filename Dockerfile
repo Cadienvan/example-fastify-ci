@@ -16,4 +16,4 @@ COPY --chown=node:node . .
 
 EXPOSE 3000
 
-CMD ["node", ""]
+CMD ["node", "index.js"]
