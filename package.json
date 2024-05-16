@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "prebuild:prettier": "prettier --write ./app",
+    "format": "npm run prebuild:prettier",
+    "release:patch": "cd app && npm run release:patch",
+    "release:minor": "cd app && npm run release:minor",
+    "release:major": "cd app && npm run release:major",
+    "lefthook:install": "lefthook install",
+    "postinstall": "npm run lefthook:install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "lefthook": "^1.6.11",
+    "prettier": "^3.2.5"
+  }
+}

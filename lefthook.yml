@@ -1,0 +1,8 @@
+pre-commit:
+  commands:
+    format:
+      run: npm run format
+commit-msg:
+  scripts:
+    "commitlint.sh":
+      runner: bash
