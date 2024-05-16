@@ -1,0 +1,58 @@
+ARG NODE_VERSION=22.1.0
+
+
+################################################################################
+
+
+FROM node:${NODE_VERSION} AS development
+
+WORKDIR /app
+
+ENV NODE_ENV=development
+
+ENTRYPOINT ["bash"]
+
+CMD ["-c", "npm i && npm run watch"]
+
+################################################################################
+
+
+FROM node:${NODE_VERSION} AS production-builder
+
+WORKDIR /app
+
+COPY \
+  package.json \
+  package-lock.json \
+  ./
+
+RUN npm ci
+
+COPY \
+  tsconfig.json \
+  esbuild.js \
+  esbuild-node-loader.js \
+  ./
+
+COPY src src
+
+ENV NODE_ENV=production
+
+RUN node esbuild.js
+RUN npm run deploy-public
+
+
+################################################################################
+
+
+FROM gcr.io/distroless/nodejs22-debian12 AS production
+
+WORKDIR /app
+
+COPY --from=production-builder /app/dist dist
+
+USER nobody
+
+ENV NODE_ENV=production
+
+CMD ["dist/index.js"]
