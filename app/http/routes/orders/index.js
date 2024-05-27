@@ -84,7 +84,7 @@ export default async function routes(app) {
       }
     },
     async (request, reply) => {
-      console.log('prova1');
+      console.log('prova1-1');
       db.push('http_log', {
         method: 'POST',
         path: '/orders/payments',
